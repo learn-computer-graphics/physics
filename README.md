@@ -35,3 +35,11 @@ Basics dynamics used in real-time rendering simulations
 | [Physics modeling for game programmers](https://www.amazon.fr/Physics-Modeling-Programmers-J-Robert-Ellis/dp/1592000932) | | <img width="80" src="https://images-na.ssl-images-amazon.com/images/I/51esKyMOd8L.jpg"> |
 | [Game physics, 2nd edition](https://www.amazon.com/Physics-Second-Eberly-David-Hardcover/dp/B009O3BQGQ) | | <img width="80" src="https://images.routledge.com/common/jackets/originals/978012374/9780123749031.tif"> |
 
+### Libraries
+
+| Name | Description |
+| --- | --- |
+| [NVidia PhysX](https://github.com/NVIDIAGameWorks/PhysX) | |
+| [Bullet](https://pybullet.org/wordpress/) | |
+| [Box2D](https://box2d.org/) | |
+
