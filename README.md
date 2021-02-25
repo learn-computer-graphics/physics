@@ -2,6 +2,10 @@
 
 Basics dynamics used in real-time rendering simulations
 
+## Getting started
+
+You need do download [OpenFrameworks](https://openframeworks.cc/download/) in order to build and run the TD. They provide a project generator which can import and create project files for your platform based on the TD configuration.
+
 ## Sources
 
 ### Classes

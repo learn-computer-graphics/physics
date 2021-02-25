@@ -1,0 +1,10 @@
+.vs/
+obj/
+bin/*
+!bin/data
+
+icon.rc
+*.sln
+*.vcxproj
+*.filters
+*.user
