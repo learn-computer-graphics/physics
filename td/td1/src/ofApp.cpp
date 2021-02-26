@@ -1,5 +1,25 @@
 #include "ofApp.h"
 
+#include <vector>
+
+#include "link.h"
+#include "mass.h"
+
+static int      Fe = 100; // frequency
+static double   h = 1. / Fe;
+static double   m = 1.;
+static double   k = 0.100 * m * std::sqrt(Fe);
+static double   z = 0.005 * m * Fe;
+
+std::vector<Mass> masses = {
+	Mass(MassType::Constant, 500., 500., 0.),
+	Mass(MassType::Movable, 500., 550., m),
+};
+
+std::vector<Link> links = {
+	SpringBreakLink(k, z)
+};
+
 //--------------------------------------------------------------
 void ofApp::setup(){
 	ofBackground(255, 255, 255);
@@ -11,25 +31,39 @@ void ofApp::setup(){
 	gui.add(radius.setup("radius", 140, 10, 300));
 
 	ofSetColor(255, 130, 0);
+
+	links[0].connect(&masses[0], &masses[1]);
+	reset();
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
+	for (auto& link : links)
+		link.update();
 
+	for (auto& mass : masses)
+		mass.update(h);
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
 	gui.draw();
 
-	ofDrawCircle(100, 400, 50);
+	for (auto& link : links)
+		link.draw();
 
-	ofDrawLine(600, 300, 800, 250);
+	for (auto& mass : masses)
+		mass.draw();
+}
+
+void ofApp::reset()
+{
+	masses[0].addToFriction(1. * std::sqrt(Fe));
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+	reset();
 }
 
 //--------------------------------------------------------------

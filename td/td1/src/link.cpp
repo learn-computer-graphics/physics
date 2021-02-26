@@ -1,5 +1,6 @@
 #include "link.h"
 
+#include "ofMain.h"
 
 Link::Link(LinkType type, double k, double l, double z, double s, double fric, bool isActivated)
 	:type(type), k(k), l(l), z(z), s(s), fric(fric), isActivated(isActivated)
@@ -11,6 +12,10 @@ Link::~Link()
 
 void Link::draw() const
 {
+	if (m1 == nullptr || m2 == nullptr)
+		return;
+
+	ofDrawLine(m1->getX(), m1->getY(), m2->getX(), m2->getY());
 }
 
 void Link::connect(Mass* mass1, Mass* mass2)
@@ -25,6 +30,9 @@ void Link::connect(Mass* mass1, Mass* mass2)
 
 void Link::update()
 {
+	if (m1 == nullptr || m2 == nullptr)
+		return;
+
 	switch (type)
 	{
 	case LinkType::Constant: updateConstant(); break;

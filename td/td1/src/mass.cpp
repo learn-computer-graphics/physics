@@ -1,5 +1,7 @@
 #include "mass.h"
 
+#include "ofMain.h"
+
 Mass::Mass(MassType type, double x, double y, double m)
 	: type(type), x(x), y(y), m(m)
 {
@@ -18,7 +20,7 @@ void Mass::leapFrog(double h)
 
 void Mass::draw() const
 {
-	
+	ofDrawCircle(x, y, 15);
 }
 
 void Mass::update(double h)
