@@ -12,7 +12,7 @@ static double   k = 0.100 * m * std::sqrt(Fe);
 static double   z = 0.005 * m * Fe;
 
 std::vector<Mass> masses = {
-	Mass(MassType::Constant, 500., 500., 0.),
+	Mass(MassType::Constant, 500., 500., 1.),
 	Mass(MassType::Movable, 500., 550., m),
 };
 
@@ -32,7 +32,7 @@ void ofApp::setup(){
 
 	ofSetColor(255, 130, 0);
 
-	links[0].connect(&masses[0], &masses[1]);
+	links[0].connect(&masses[1], &masses[0]);
 	reset();
 }
 
@@ -58,7 +58,7 @@ void ofApp::draw(){
 
 void ofApp::reset()
 {
-	masses[0].addToFriction(1. * std::sqrt(Fe));
+	masses[1].addToFriction(1. * std::sqrt(Fe));
 }
 
 //--------------------------------------------------------------

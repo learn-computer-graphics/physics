@@ -14,7 +14,7 @@ Mass::~Mass()
 void Mass::leapFrog(double h)
 {
 	speed += h * fric / m;
-	y += h * speed;
+	y += h * speed * 1000; // Temp multiply to see the movement
 	fric = 0;
 }
 
