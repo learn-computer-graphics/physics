@@ -4,7 +4,7 @@ Basics dynamics used in real-time rendering simulations
 
 ## Getting started
 
-You need do download [OpenFrameworks](https://openframeworks.cc/download/) in order to build and run the TD. They provide a project generator which can import and create project files for your platform based on the TD configuration.
+You need do download OpenFrameworks in order to build and run the TD. They provide a project generator which can import and create project files for your platform based on the TD configuration.
 
 ## Sources
 
@@ -17,6 +17,7 @@ You need do download [OpenFrameworks](https://openframeworks.cc/download/) in or
 | [Modelling simulation nature processes by Coursera](https://www.coursera.org/learn/modeling-simulation-natural-processes) | |
 | [Pixar in a box](https://www.khanacademy.org/computing/pixar) | |
 | [Physics-based animation at University of Waterloo by Christopher Batty](https://cs.uwaterloo.ca/~c2batty/courses/CS888_2014/) | |
+| [GDC - Technical Artist Bootcamp: Real-Time Cloth Solutions on 'Marvel's Spider-Man'](https://gdcvault.com/play/1025663/Technical-Artist-Bootcamp-Real-Time) | |
 
 ### Videos
 
@@ -25,6 +26,10 @@ You need do download [OpenFrameworks](https://openframeworks.cc/download/) in or
 | [GDC - Physics for game programmers, continuous collision](https://www.youtube.com/watch?v=7_nKOET6zwI) | |
 | [GDC - Physics for game programmers, understanding constraints](https://www.youtube.com/watch?v=SHinxAhv1ZE) | |
 | [GDC - Valve's physics for game programmers](https://www.youtube.com/watch?v=1RphLzpQiJY) | |
+| [GDC - Cloth Self Collision with Predective Contacts](https://www.youtube.com/watch?v=XUsD3xrNJH0) | |
+| [GDC - Ubisoft Cloth Simulation: Performance Postmortem and Journey from C++ to Compute Shaders](https://www.gdcvault.com/play/1022350/Ubisoft-Cloth-Simulation-Performance-Postmortem) | |
+| [Inspecto - But how do Soft body simulations work ?](https://www.youtube.com/watch?v=kyQP4t_wOGI) | |
+| [Two Minute Papers - Why are cloth simulations so hard ?](https://www.youtube.com/watch?v=UoKXJzTYDpw) | |
 
 ### Books
 
@@ -39,6 +44,12 @@ You need do download [OpenFrameworks](https://openframeworks.cc/download/) in or
 | [Physics modeling for game programmers](https://www.amazon.fr/Physics-Modeling-Programmers-J-Robert-Ellis/dp/1592000932) | | <img width="80" src="https://images-na.ssl-images-amazon.com/images/I/51esKyMOd8L.jpg"> |
 | [Game physics, 2nd edition](https://www.amazon.com/Physics-Second-Eberly-David-Hardcover/dp/B009O3BQGQ) | | <img width="80" src="https://images.routledge.com/common/jackets/originals/978012374/9780123749031.tif"> |
 
+### Papers
+
+| Name                                                         | Year | Description |
+| ------------------------------------------------------------ | ---- | ----------- |
+| [Fast Simulation of Mass-Spring Systems](https://www.cs.utah.edu/~ladislav/liu13fast/liu13fast.html) | 2013 |             |
+
 ### Libraries
 
 | Name | Description |
@@ -46,4 +57,13 @@ You need do download [OpenFrameworks](https://openframeworks.cc/download/) in or
 | [NVidia PhysX](https://github.com/NVIDIAGameWorks/PhysX) | |
 | [Bullet](https://pybullet.org/wordpress/) | |
 | [Box2D](https://box2d.org/) | |
+
+### Repositories
+
+| Name                                                         | Description |
+| ------------------------------------------------------------ | ----------- |
+| [Cloth Simulation in OpenGL](https://github.com/torresf/cloth-simulation) |             |
+| [Cloth Simulation Viewer](https://github.com/dragonbleapiece/flag-viewer) |             |
+| [Fast Mass Spring](https://github.com/sam007961/FastMassSpring) |             |
+| [OpenGL Cloth](https://github.com/bailus/Cloth)              |             |
 
