@@ -17,6 +17,7 @@ namespace GLSLShaderInfo {
 		{".vs",   GLSLShader::VERTEX},
 		{".vert", GLSLShader::VERTEX},
 		{"_vert.glsl", GLSLShader::VERTEX},
+		{"_vs.glsl", GLSLShader::VERTEX},
 		{".vert.glsl", GLSLShader::VERTEX },
 		{".gs",   GLSLShader::GEOMETRY},
 		{".geom", GLSLShader::GEOMETRY},
@@ -29,7 +30,9 @@ namespace GLSLShaderInfo {
 		{".frag", GLSLShader::FRAGMENT},
 		{"_frag.glsl", GLSLShader::FRAGMENT},
 		{".frag.glsl", GLSLShader::FRAGMENT},
+		{"_fs.glsl", GLSLShader::FRAGMENT},
 		{".cs",   GLSLShader::COMPUTE},
+		{ "_cs.glsl",   GLSLShader::COMPUTE },
 		{ ".cs.glsl",   GLSLShader::COMPUTE }
 	};
 }
