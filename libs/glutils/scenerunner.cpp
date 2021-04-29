@@ -9,7 +9,8 @@
 
 SceneRunner::SceneRunner(const std::string& windowTitle, int width, int height, int samples) : debug(true) {
 	// Initialize GLFW
-	if (!glfwInit()) exit(EXIT_FAILURE);
+	if (!glfwInit()) 
+		exit(EXIT_FAILURE);
 
 #ifdef __APPLE__
 	// Select OpenGL 4.1
@@ -22,12 +23,11 @@ SceneRunner::SceneRunner(const std::string& windowTitle, int width, int height, 
 #endif
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+	glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 	if (debug)
 		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
-	if (samples > 0) {
+	if (samples > 0)
 		glfwWindowHint(GLFW_SAMPLES, samples);
-	}
 
 	// Open the window
 	window = glfwCreateWindow(WIN_WIDTH, WIN_HEIGHT, windowTitle.c_str(), NULL, NULL);
@@ -42,12 +42,21 @@ SceneRunner::SceneRunner(const std::string& windowTitle, int width, int height, 
 	glfwGetFramebufferSize(window, &fbw, &fbh);
 
 	// Load the OpenGL functions.
-	if (!gladLoadGL()) { exit(-1); }
-
+	if (!gladLoadGL())
+	{
+		std::cerr << "Unable to load GL functions." << std::endl;
+		glfwTerminate();
+		exit(EXIT_FAILURE);
+	}
+		
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
+#ifndef __APPLE__
 	ImGui_ImplOpenGL3_Init("#version 430 core");
+#else
+	ImGui_ImplOpenGL3_Init("#version 410 core");
+#endif
 	ImGui::StyleColorsDark();
 
 	GLUtils::dumpGLInfo();
@@ -56,10 +65,11 @@ SceneRunner::SceneRunner(const std::string& windowTitle, int width, int height, 
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 #ifndef __APPLE__
 	if (debug) {
+		glEnable(GL_DEBUG_OUTPUT);
+		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 		glDebugMessageCallback(GLUtils::debugCallback, nullptr);
-		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, NULL, GL_TRUE);
-		glDebugMessageInsert(GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_MARKER, 0,
-			GL_DEBUG_SEVERITY_NOTIFICATION, -1, "Start debugging");
+		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, nullptr, GL_FALSE);
+		glDebugMessageControl(GL_DONT_CARE, GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR, GL_DONT_CARE, 0, nullptr, GL_FALSE);
 	}
 #endif
 }
