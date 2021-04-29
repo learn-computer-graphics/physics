@@ -62,7 +62,7 @@ SceneRunner::SceneRunner(const std::string& windowTitle, int width, int height, 
 	GLUtils::dumpGLInfo();
 
 	// Initialization
-	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+	glClearColor(0.8f, 0.8f, 0.9f, 1.0f);
 #ifndef __APPLE__
 	if (debug) {
 		glEnable(GL_DEBUG_OUTPUT);

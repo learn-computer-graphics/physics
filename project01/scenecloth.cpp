@@ -49,7 +49,7 @@ void SceneCloth::initScene()
 	computeProg.setUniform("RestLengthDiag", sqrtf(dx * dx + dy * dy));
 
 	glActiveTexture(GL_TEXTURE0);
-	clothTexture = Texture::loadTexture("../res/texture/me_textile.png");
+	clothTexture = Texture::loadTexture("../res/texture/textile.png");
 }
 
 void SceneCloth::initBuffers()
@@ -236,14 +236,14 @@ void SceneCloth::uiUpdate()
 void SceneCloth::compileAndLinkShader()
 {
 	try {
-		renderProg.compileShader("shader/ads.vs");
-		renderProg.compileShader("shader/ads.fs");
+		renderProg.compileShader("shader/ads_vs.glsl");
+		renderProg.compileShader("shader/ads_fs.glsl");
 		renderProg.link();
 
-		computeProg.compileShader("shader/cloth.cs");
+		computeProg.compileShader("shader/cloth_cs.glsl");
 		computeProg.link();
 
-		computeProgNorm.compileShader("shader/cloth_normal.cs");
+		computeProgNorm.compileShader("shader/cloth_normal_cs.glsl");
 		computeProgNorm.link();
 	}
 	catch (GLSLProgramException& e) {
