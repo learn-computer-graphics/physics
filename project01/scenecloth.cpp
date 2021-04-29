@@ -19,7 +19,11 @@ SceneCloth::SceneCloth()
 	: clothVao(0), numElements(0),
 	nParticles(40, 40), clothSize(4.0f, 3.0f),
 	time(0.0f), deltaT(0.0f), speed(200.0f), readBuf(0),
-	wireframe(false), wind(false), windStrength(0.5), windDir(glm::vec3(0.2, 0, 0.6))
+	lightDir(glm::vec3(0)), lightColor(glm::vec3(1)),
+	specularity(0.2f), ambiant(0.2f), diffuse(0.8f), shininess(80),
+	wireframe(false), gravity(glm::vec3(0, -10, 0)),
+	particleMass(0.1), springK(2000), wind(false),
+	windStrength(0.5), windDir(glm::vec3(0.2, 0, 0.6))
 {
 }
 
@@ -32,14 +36,8 @@ void SceneCloth::initScene()
 	initBuffers();
 
 	projection = glm::perspective(glm::radians(50.0f), (float)width / height, 1.0f, 100.0f);
-
 	renderProg.use();
-	renderProg.setUniform("LightPosition", glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
-	renderProg.setUniform("LightIntensity", glm::vec3(1.0f));
-	renderProg.setUniform("Kd", glm::vec3(0.8f));
-	renderProg.setUniform("Ka", glm::vec3(0.2f));
-	renderProg.setUniform("Ks", glm::vec3(0.2f));
-	renderProg.setUniform("Shininess", 80.0f);
+	setLight();
 
 	computeProg.use();
 	float dx = clothSize.x / (nParticles.x - 1);
@@ -174,10 +172,7 @@ void SceneCloth::render()
 		glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 
 	computeProg.use();
-
-	computeProg.setUniform("HasWind", static_cast<float>(wind));
-	computeProg.setUniform("WindStrength", windStrength);
-	computeProg.setUniform("WindDir", windDir);
+	setPhysics();
 
 	for (int i = 0; i < 1000; i++) {
 		glDispatchCompute(nParticles.x / 10, nParticles.y / 10, 1);
@@ -199,6 +194,7 @@ void SceneCloth::render()
 	// Now draw the scene
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	renderProg.use();
+	setLight();
 
 	renderProg.setTexture("Tex", clothTexture, 0);
 
@@ -214,7 +210,6 @@ void SceneCloth::render()
 }
 
 void SceneCloth::setMatrices() {
-	renderProg.use();
 	glm::mat4 mv = view * model;
 	glm::mat3 norm = glm::mat3(vec3(mv[0]), vec3(mv[1]), vec3(mv[2]));
 
@@ -223,11 +218,33 @@ void SceneCloth::setMatrices() {
 	renderProg.setUniform("MVP", projection * mv);
 }
 
+void SceneCloth::setLight()
+{
+	renderProg.setUniform("LightPosition", glm::vec4(lightDir, 1.0f));
+	renderProg.setUniform("LightIntensity", lightColor);
+	renderProg.setUniform("Kd", glm::vec3(diffuse));
+	renderProg.setUniform("Ka", glm::vec3(ambiant));
+	renderProg.setUniform("Ks", glm::vec3(specularity));
+	renderProg.setUniform("Shininess", shininess);
+}
+
+void SceneCloth::setPhysics()
+{
+	computeProg.setUniform("Gravity", gravity);
+	computeProg.setUniform("ParticleMass", particleMass);
+	computeProg.setUniform("SpringK", springK);
+
+	computeProg.setUniform("HasWind", static_cast<float>(wind));
+	computeProg.setUniform("WindStrength", windStrength);
+	computeProg.setUniform("WindDir", windDir);
+}
+
 void SceneCloth::resize(int w, int h)
 {
 	glViewport(0, 0, w, h);
 	width = w;
 	height = h;
+	projection = glm::perspective(glm::radians(50.0f), (float)width / height, 1.0f, 100.0f);
 }
 
 void SceneCloth::uiUpdate()
@@ -235,11 +252,28 @@ void SceneCloth::uiUpdate()
 	ImGui::Begin("GUI");
 	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	ImGui::Checkbox("Wireframe", &wireframe);
+	if (ImGui::CollapsingHeader("Particles", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		ImGui::SliderFloat3("Gravity", &gravity[0], -20.0f, 20.0f);
+		ImGui::SliderFloat("ParticleMass", &particleMass, 0.1f, 0.5f);
+		ImGui::SliderFloat("SpringK", &springK, 500.0f, 5000.0f);
+	}
+
 	if (ImGui::CollapsingHeader("Wind", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		ImGui::Checkbox("Enable", &wind);
 		ImGui::SliderFloat("Strength", &windStrength, 0.0f, 10.0f);
-		ImGui::SliderFloat3("Direction", &windDir[0], 0.0f, 1.0f);
+		ImGui::SliderFloat3("Wind Direction", &windDir[0], -1.0f, 1.0f);
+	}
+
+	if (ImGui::CollapsingHeader("Light", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		ImGui::SliderFloat3("Light Direction", &lightDir[0], 0.0f, 1.0f);
+		ImGui::ColorPicker3("Color", &lightColor[0]);
+		ImGui::SliderFloat("Ambiant", &ambiant, 0.0f, 1.0f);
+		ImGui::SliderFloat("Diffuse", &diffuse, 0.0f, 1.0f);
+		ImGui::SliderFloat("Specular", &specularity, 0.0f, 1.0f);
+		ImGui::SliderFloat("Shininess", &shininess, 0.0f, 200.0f);
 	}
 	
 	ImGui::End();

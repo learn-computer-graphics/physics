@@ -21,6 +21,8 @@ private:
 	void compileAndLinkShader();
 	void initBuffers();
 	void setMatrices();
+	void setLight();
+	void setPhysics();
 
 private:
 	GLSLProgram renderProg, computeProg, computeProgNorm;
@@ -38,6 +40,17 @@ private:
 	GLuint normBuf, elBuf, tcBuf;
 
 	bool wireframe;
+	glm::vec3 lightDir;
+	glm::vec3 lightColor;
+	float ambiant;
+	float diffuse;
+	float specularity;
+	float shininess;
+
+	glm::vec3 gravity;
+	float particleMass;
+	float springK;
+
 	bool wind;
 	float windStrength;
 	glm::vec3 windDir;
