@@ -4,7 +4,9 @@ Basics dynamics used in real-time rendering simulations
 
 ## Getting started
 
-You need do download OpenFrameworks in order to build and run the TD. They provide a project generator which can import and create project files for your platform based on the TD configuration.
+TODO
+
+Setup CMake and vcpkg if on windows
 
 ## Sources
 
@@ -43,6 +45,7 @@ You need do download OpenFrameworks in order to build and run the TD. They provi
 | [Physics for game developers, 2nd edition](https://www.amazon.fr/Physics-Game-Developers-David-Bourg/dp/1449392512) | | <img width="80" src="https://images-na.ssl-images-amazon.com/images/I/71IdeyuYgSL.jpg"> |
 | [Physics modeling for game programmers](https://www.amazon.fr/Physics-Modeling-Programmers-J-Robert-Ellis/dp/1592000932) | | <img width="80" src="https://images-na.ssl-images-amazon.com/images/I/51esKyMOd8L.jpg"> |
 | [Game physics, 2nd edition](https://www.amazon.com/Physics-Second-Eberly-David-Hardcover/dp/B009O3BQGQ) | | <img width="80" src="https://images.routledge.com/common/jackets/originals/978012374/9780123749031.tif"> |
+| [OpenGL 4 Shading Language Cookbook 3rd edition](https://www.amazon.fr/OpenGL-Shading-Language-Cookbook-high-quality-ebook/dp/B07HXYJ9VT) | The code repository can be found [here](https://github.com/PacktPublishing/OpenGL-4-Shading-Language-Cookbook-Third-Edition). Check chapter 11 for cloth simulation. | <img width="80" src="https://m.media-amazon.com/images/I/41Ldhjbj4CL.jpg"> |
 
 ### Papers
 
