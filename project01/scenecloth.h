@@ -36,5 +36,9 @@ private:
 	GLuint readBuf;
 	GLuint posBufs[2], velBufs[2];
 	GLuint normBuf, elBuf, tcBuf;
+
 	bool wireframe;
+	bool wind;
+	float windStrength;
+	glm::vec3 windDir;
 };

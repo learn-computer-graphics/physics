@@ -19,7 +19,7 @@ SceneCloth::SceneCloth()
 	: clothVao(0), numElements(0),
 	nParticles(40, 40), clothSize(4.0f, 3.0f),
 	time(0.0f), deltaT(0.0f), speed(200.0f), readBuf(0),
-	wireframe(false)
+	wireframe(false), wind(false), windStrength(0.5), windDir(glm::vec3(0.2, 0, 0.6))
 {
 }
 
@@ -174,6 +174,11 @@ void SceneCloth::render()
 		glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 
 	computeProg.use();
+
+	computeProg.setUniform("HasWind", static_cast<float>(wind));
+	computeProg.setUniform("WindStrength", windStrength);
+	computeProg.setUniform("WindDir", windDir);
+
 	for (int i = 0; i < 1000; i++) {
 		glDispatchCompute(nParticles.x / 10, nParticles.y / 10, 1);
 		glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
@@ -230,6 +235,13 @@ void SceneCloth::uiUpdate()
 	ImGui::Begin("GUI");
 	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	ImGui::Checkbox("Wireframe", &wireframe);
+	if (ImGui::CollapsingHeader("Wind", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		ImGui::Checkbox("Enable", &wind);
+		ImGui::SliderFloat("Strength", &windStrength, 0.0f, 10.0f);
+		ImGui::SliderFloat3("Direction", &windDir[0], 0.0f, 1.0f);
+	}
+	
 	ImGui::End();
 }
 
