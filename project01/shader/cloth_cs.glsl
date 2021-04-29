@@ -11,6 +11,9 @@ uniform float RestLengthVert;
 uniform float RestLengthDiag;
 uniform float DeltaT = 0.000005;
 uniform float DampingConst = 0.1;
+uniform bool HasWind = true;
+uniform float WindStrength = 2;
+uniform vec3 WindDir = vec3(4, 0, 2);
 
 layout(std430, binding=0) buffer PosIn {
   vec4 PositionIn[];
@@ -23,6 +26,9 @@ layout(std430, binding=2) buffer VelIn {
 };
 layout(std430, binding=3) buffer VelOut {
   vec4 VelocityOut[];
+};
+layout(std430, binding=4) buffer NormIn {
+  vec4 Normal[];
 };
 
 void main() {
@@ -80,6 +86,18 @@ void main() {
   }
 
   force += -DampingConst * v;
+
+  if (HasWind)
+  {
+	vec3 normalized_wind_dir;
+	if (WindDir == vec3(0.0f, 0.0f, 0.0f))
+		normalized_wind_dir = glm::vec3(0.0f, 0.0f, 0.0f);
+	else
+		normalized_wind_dir = normalize(WindDir);
+
+	vec3 f_wind = WindStrength * dot(Normal[idx].xyz, normalized_wind_dir) * Normal[idx].xyz;
+	force += f_wind;
+  }
 
   // Apply simple Euler integrator
   vec3 a = force * ParticleInvMass;
