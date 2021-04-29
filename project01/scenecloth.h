@@ -18,6 +18,11 @@ public:
 	void uiUpdate() override;
 
 private:
+	void compileAndLinkShader();
+	void initBuffers();
+	void setMatrices();
+
+private:
 	GLSLProgram renderProg, computeProg, computeProgNorm;
 
 	GLuint clothVao;
@@ -30,8 +35,5 @@ private:
 	GLuint readBuf;
 	GLuint posBufs[2], velBufs[2];
 	GLuint normBuf, elBuf, tcBuf;
-
-	void compileAndLinkShader();
-	void initBuffers();
-	void setMatrices();
+	bool wireframe;
 };

@@ -18,7 +18,8 @@ using glm::vec3;
 SceneCloth::SceneCloth()
 	: clothVao(0), numElements(0),
 	nParticles(40, 40), clothSize(4.0f, 3.0f),
-	time(0.0f), deltaT(0.0f), speed(200.0f), readBuf(0)
+	time(0.0f), deltaT(0.0f), speed(200.0f), readBuf(0),
+	wireframe(false)
 {
 }
 
@@ -167,6 +168,11 @@ void SceneCloth::update(float t)
 
 void SceneCloth::render()
 {
+	if (wireframe)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	else
+		glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+
 	computeProg.use();
 	for (int i = 0; i < 1000; i++) {
 		glDispatchCompute(nParticles.x / 10, nParticles.y / 10, 1);
@@ -220,6 +226,7 @@ void SceneCloth::uiUpdate()
 {
 	ImGui::Begin("GUI");
 	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+	ImGui::Checkbox("Wireframe", &wireframe);
 	ImGui::End();
 }
 
