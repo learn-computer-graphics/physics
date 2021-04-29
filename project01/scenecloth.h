@@ -27,6 +27,7 @@ private:
 
 	GLuint clothVao;
 	GLuint numElements;
+	GLuint clothTexture;
 
 	glm::ivec2 nParticles;  // Number of particles in each dimension
 	glm::vec2 clothSize;    // Size of cloth in x and y

@@ -5,6 +5,7 @@
 #include <map>
 #include <glm/glm.hpp>
 #include <stdexcept>
+#include <iostream>
 
 class GLSLProgramException : public std::runtime_error {
 public:
@@ -67,6 +68,8 @@ public:
 	void setUniform(const char* name, bool val);
 	void setUniform(const char* name, GLuint val);
 
+	void setTexture(const char* name, GLuint textureId, GLuint textureSlot);
+
 	void findUniformLocations();
 	void printActiveUniforms();
 	void printActiveUniformBlocks();
@@ -80,6 +83,11 @@ int GLSLProgram::getUniformLocation(const char* name) {
 
 	if (pos == uniformLocations.end()) {
 		GLint loc = glGetUniformLocation(handle, name);
+		if (loc == -1)
+		{
+			std::cerr << "Uniform do not exist : " << name << std::endl;
+		}
+
 		uniformLocations[name] = loc;
 		return loc;
 	}

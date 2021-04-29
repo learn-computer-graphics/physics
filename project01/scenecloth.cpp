@@ -49,7 +49,7 @@ void SceneCloth::initScene()
 	computeProg.setUniform("RestLengthDiag", sqrtf(dx * dx + dy * dy));
 
 	glActiveTexture(GL_TEXTURE0);
-	Texture::loadTexture("../media/texture/me_textile.png");
+	clothTexture = Texture::loadTexture("../res/texture/me_textile.png");
 }
 
 void SceneCloth::initBuffers()
@@ -192,8 +192,11 @@ void SceneCloth::render()
 	glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
 	// Now draw the scene
-	renderProg.use();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	renderProg.use();
+
+	renderProg.setTexture("Tex", clothTexture, 0);
+
 	view = glm::lookAt(glm::vec3(3, 2, 5), glm::vec3(2, 1, 0), glm::vec3(0, 1, 0));
 	model = glm::mat4(1.0f);
 	setMatrices();

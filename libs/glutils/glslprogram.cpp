@@ -312,6 +312,13 @@ void GLSLProgram::setUniform(const char* name, GLuint val) {
 	glUniform1ui(loc, val);
 }
 
+void GLSLProgram::setTexture(const char* name, GLuint textureId, GLuint textureSlot)
+{
+	glActiveTexture(GL_TEXTURE0 + textureSlot);
+	glBindTexture(GL_TEXTURE_2D, textureId);
+	glUniform1i(getUniformLocation(name), textureSlot);
+}
+
 void GLSLProgram::setUniform(const char* name, bool val) {
 	int loc = getUniformLocation(name);
 	glUniform1i(loc, val);
