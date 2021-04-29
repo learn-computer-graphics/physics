@@ -31,6 +31,11 @@ public:
 	virtual void update(float t) = 0;
 
 	/**
+	 * This is where you put your imgui begin and end
+	 */
+	virtual void uiUpdate() = 0;
+
+	/**
 	  Draw your scene.
 	  */
 	virtual void render() = 0;

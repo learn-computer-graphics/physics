@@ -8,6 +8,15 @@
 
 class SceneCloth : public Scene
 {
+public:
+	SceneCloth();
+
+	void initScene() override;
+	void update(float t) override;
+	void render() override;
+	void resize(int, int) override;
+	void uiUpdate() override;
+
 private:
 	GLSLProgram renderProg, computeProg, computeProgNorm;
 
@@ -25,12 +34,4 @@ private:
 	void compileAndLinkShader();
 	void initBuffers();
 	void setMatrices();
-
-public:
-	SceneCloth();
-
-	void initScene();
-	void update(float t);
-	void render();
-	void resize(int, int);
 };

@@ -110,20 +110,12 @@ void SceneRunner::mainLoop(GLFWwindow* window, std::unique_ptr<Scene> scene) {
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		{
-			ImGui::Begin("GUI");
-			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-			ImGui::End();
-		}
+		scene->uiUpdate();
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		glfwPollEvents();
-		int state = glfwGetKey(window, GLFW_KEY_SPACE);
-		if (state == GLFW_PRESS)
-			scene->animate(!scene->animating());
-
 		glfwSwapBuffers(window);
 	}
 }

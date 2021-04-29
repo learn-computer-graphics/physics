@@ -1,6 +1,8 @@
 #include "scenecloth.h"
 #include "texture.h"
 
+#include <imgui/imgui.h>
+
 #include <iostream>
 using std::endl;
 using std::cerr;
@@ -212,6 +214,13 @@ void SceneCloth::resize(int w, int h)
 	glViewport(0, 0, w, h);
 	width = w;
 	height = h;
+}
+
+void SceneCloth::uiUpdate()
+{
+	ImGui::Begin("GUI");
+	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+	ImGui::End();
 }
 
 void SceneCloth::compileAndLinkShader()
