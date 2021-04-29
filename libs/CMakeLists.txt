@@ -14,7 +14,10 @@ add_library(libs STATIC
     stb/stbimpl.cpp
     glutils/glutils.cpp
     glutils/glslprogram.cpp
-    glutils/texture.cpp)
+    glutils/texture.cpp
+    glutils/scenerunner.cpp)
+
+target_compile_definitions(libs PRIVATE GLFW_INCLUDE_NONE)
 
 if(UNIX AND NOT APPLE)
     target_link_libraries(libs PUBLIC ${CMAKE_DL_LIBS})
