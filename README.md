@@ -2,11 +2,55 @@
 
 Basics dynamics used in real-time rendering simulations
 
+## Projects
+
+#### 01 Cloth simulation
+
+![cloth](doc/project-01.png)
+
 ## Getting started
 
-TODO
+### Prerequisites
 
-Setup CMake and vcpkg if on windows
+You need to install the CMake build system and a modern C++ compiler.
+
+#### Linux
+
+```
+sudo apt-get install build-essential cmake
+```
+
+#### Windows
+
+To get the MSVC compiler, you need to install [Visual Studio](https://visualstudio.microsoft.com/fr/) (and not VSCode) and select the C++ development package during install. You also need to install [CMake](https://cmake.org/) which can also be done by visual studio.
+
+### Build
+
+You can handle the `CMakeLists.txt` in any way you like, here's some way to use it :
+
+#### `Option 1: CLI`
+
+Go to the folder of this project and run :
+
+```bash
+mkdir build
+cd build
+cmake ..
+make
+```
+
+#### `Option 2: Visual Studio (Windows only)`
+
+Open this folder with the `CMake...` option in file->open on Visual Studio, and run the project.
+
+
+#### `Option 3: VSCode`
+
+Use the `CMakeTools` plugin, build with `f7` then run with `f5` (But be careful to be on the right platform, there is a launch file for windows and for linux).
+
+### Launch
+
+Simply open the `project01` file generated in the build directory and run it
 
 ## Sources
 
